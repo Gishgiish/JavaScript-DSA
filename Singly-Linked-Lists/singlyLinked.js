@@ -137,7 +137,7 @@ class SinglyLinkedList{
         // place holder
         let newNode = new Node(val);
 
-        // otherwise, using the get method, access the node at the index -1
+        // otherwise, using the get method, access the node at the index - 1
         let prev = this.get(index - 1);
 
         // original next of the node that we are inserting after
@@ -153,6 +153,38 @@ class SinglyLinkedList{
 
     }
     // remove: removing a node from a specified position on the list
+    remove(index){
+        if(index < 0 || index > this.length) return undefined;
+        if(index = this.length - 1) return this.pop();        
+        if(index === 0) return this.shift();
+
+        let prevNode = this.get(index - 1);
+        let removed = prevNode.next;
+        prevNode.next = removed.next;
+        this.length --;
+
+        return removed;        
+    }
+    // reverse: reversing the list in place
+    reverse(){
+        // swap the head and the tail
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+
+        // variable to act as place holder
+        let prev = null;
+        let next;
+        // loop through the list reversing it
+        for(let i = 0; i < this.length; i++){
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;            
+        }
+
+        return this;
+    }
 }
 
 let list = new SinglyLinkedList();
